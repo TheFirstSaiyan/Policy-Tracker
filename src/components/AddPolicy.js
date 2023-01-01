@@ -50,9 +50,9 @@ function AddPolicy() {
                 <textarea type='text-area' rows={4} className='form-control' required></textarea>
             </div>
 
-            {showNomineeForm && <NomineeForm/>}
+            <NomineeForm setShowNomineeForm = {setShowNomineeForm} showNomineeForm = {showNomineeForm}/>
             <div className='text-end'>
-                <button type='button' className='mt-5 mb-2 btn btn-primary' onClick={()=>{setShowNomineeForm(!showNomineeForm)}}> + Nominee(s)</button>
+                {!showNomineeForm && <button type='button' className='mt-5 mb-2 btn btn-primary' onClick={()=>{setShowNomineeForm(!showNomineeForm)}}> + Nominee(s)</button>}
             </div>
 
 
