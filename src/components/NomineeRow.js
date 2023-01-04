@@ -11,7 +11,7 @@ function NomineeRow(props) {
     return (
     <tr>
         <td>{props.nominee.name}</td>
-        <td><button type='button' className="btn-sm btn-primary" onClick={()=>deleteClick(props.nominee.id)}>remove</button>
+        <td ><button type='button' className="btn-sm btn-primary" onClick={()=>deleteClick(props.nominee.id)}>remove</button>
         </td>
     </tr>);
 }

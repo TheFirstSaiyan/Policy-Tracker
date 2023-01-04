@@ -1,5 +1,5 @@
 
-import React, { useState,useEffect } from "react";
+import React, { useState } from "react";
 import NomineeDetails from "./NomineeDetails";
 
 function NomineeForm(props) {
@@ -22,12 +22,12 @@ function NomineeForm(props) {
                 
             </div>
             {props.showNomineeForm && <form>
-                <div className="row mt-5  d-flex  justify-content-center align-items-center shadow p-3 mb-5 bg-light rounded">
-                    <div className="col-md-5   d-flex  align-items-center" >
+                <div className="row mt-5  d-flex  justify-content-around align-items-center shadow p-3 mb-5 bg-light rounded">
+                    <div className="col-10   d-flex  align-items-center justify-content-between" >
                         <label className='form-label m-2'>Nominee</label>
                         <input type='text' className='form-control' required value={nomineeName} onChange={(e) => setNomineeName(e.target.value)}></input>
                     </div>
-                    <div className="col-md-2 ">
+                    <div className="col-2 ">
                         <button type='button' className=' btn btn-success btn-sm' onClick={handleClick}>+</button>
                     </div>
                 </div>

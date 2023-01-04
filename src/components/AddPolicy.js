@@ -1,6 +1,7 @@
 
 import NomineeForm from './NomineeForm'
 import React, { useState } from 'react';
+import axios from 'axios';
 
 function AddPolicy() {
 
@@ -16,7 +17,7 @@ function AddPolicy() {
     const [nominees, setNominees] = useState([]);
 
     function checkLength() {
-        console.log( premiumType);
+        console.log(premiumType);
         return policyName.length > 0 && policyDetails.length > 0 && premiumType.length > 0;
     }
 
@@ -26,12 +27,26 @@ function AddPolicy() {
     }
 
     function checkDate() {
+
         let re = new RegExp("^(0[123456789]|10|11|12)([/])([1-2][0-9][0-9][0-9])$");
         return re.test(startDate) && re.test(lastDate);
     }
-    function handleSubmit() {
-        if (checkLength() && checkDate() && checkInvalidChars()) 
-        {
+    async function handleSubmit(e) {
+        console.log("hello");
+        if (checkLength() && checkDate() && checkInvalidChars()) {
+            e.preventDefault();
+            let nom = []
+            for(let n of nominees)
+            {
+                nom.push(n.name);
+            }
+            let data = {
+                policyName: policyName, policyDetails: policyDetails, startDate: startDate, lastDate: lastDate,
+                tenure: tenure, nominees: nom.join(" and "),
+                premiumType: premiumType, premiumAmount: premiumAmount
+            };
+            await axios.post("http://localhost:8080/add",data);
+            alert("successfully added!!")
             setPolicyName('');
             setStartDate('');
             setLastDate('');
@@ -41,15 +56,14 @@ function AddPolicy() {
             setPolicyDetails('');
             setNominees([]);
         }
-        else
-        {
+        else {
             alert("Please give valid input");
         }
     }
 
 
     return (
-        <form>
+        <form onSubmit={(e) => (handleSubmit(e))}>
             <div>
                 <label className='mt-5 form-label'>Policy Name</label>
                 <input type='text' className='form-control' required value={policyName} onChange={(e) => (setPolicyName(e.target.value))}></input>
@@ -74,7 +88,7 @@ function AddPolicy() {
             <div className="row">
                 <div className="col-md-4">
                     <label className='mt-5 form-label'>Premium Type</label>
-                    <select class="form-select" aria-label="Default select example" onChange={(e) => (setPremiumType(e.target.value))}>
+                    <select class="form-select" aria-label="Default select example" value = {premiumType} onChange={(e) => (setPremiumType(e.target.value))}>
                         <option selected value='Monthly'>Monthly</option>
                         <option value="Yearly">Yearly</option>
                         <option value="Once">Once</option>
@@ -98,7 +112,7 @@ function AddPolicy() {
 
 
             <div className='text-center'>
-                <button type='button' className='mt-5 btn btn-success' onClick={handleSubmit} >Submit</button>
+                <button type='submit' className='mt-1 btn btn-success'>Submit</button>
             </div>
 
         </form>

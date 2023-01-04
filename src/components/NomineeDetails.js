@@ -5,7 +5,7 @@ function NomineeDetails(props)
     
     return (
         
-        <table className=" text-center mt-2 table border table-hover">
+        <table className=" text-center mt-2 table border table-fixed table-hover">
             <thead>
                 <tr>
                     <th>Nominee(s)</th>

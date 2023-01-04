@@ -1,13 +1,13 @@
 import React from 'react'
-import { Link, NavLink } from 'react-router-dom';
+import {NavLink } from 'react-router-dom';
 
 function NavBar() {
     return (
         <div >
             <nav className='container navbar navbar-expand-md navbar-light bg-light'>
-                <a href="#" className='navbar-brand '><h1 className="display-6">PolicyTracker</h1></a>
+                <NavLink to="/" className='navbar-brand '><h1 className="display-6">PolicyTracker</h1></NavLink>
                 <button type='button' data-bs-toggle='collapse' data-bs-target='#navbarnav' className='navbar-toggler' aria-controls='navbarnav'
-                    aria-aria-expanded='false' aria-label='Toggle Nav'>
+                    aria-expanded='false' aria-label='Toggle Nav'>
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarnav">
