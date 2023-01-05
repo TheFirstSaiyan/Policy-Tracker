@@ -2,10 +2,12 @@
 import NomineeForm from './NomineeForm'
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { Navigate, useLocation, useParams, useNavigate } from 'react-router-dom';
 
-function AddPolicy() {
+function UpdatePolicy() {
 
+    const { id } = useParams();
+    let navigate = useNavigate()
 
     const [showNomineeForm, setShowNomineeForm] = useState(false);
 
@@ -33,6 +35,33 @@ function AddPolicy() {
         let re = new RegExp("^(0[123456789]|10|11|12)([/])([1-2][0-9][0-9][0-9])$");
         return re.test(startDate) && re.test(lastDate);
     }
+
+    async function loadData() {
+        console.log(id);
+        let res = await axios.get(`http://localhost:8080/policy/${id}`);
+        let policy = await res.data;
+        setPolicyName(policy.policyName);
+        setStartDate(policy.startDate);
+        setLastDate(policy.lastDate);
+        setTenure(policy.tenure);
+        setPremiumType(policy.premiumType);
+        setPremiumAmount(policy.premiumAmount);
+        setPolicyDetails(policy.policyDetails);
+        console.log();
+        let currentNominees = policy.nominees.split(" and ");
+        let currId = 1;
+        let newNominees = [];
+        for (let n of currentNominees) {
+            if (/\S/.test(n)) {
+                newNominees.push({ id: currId, name: n });
+                currId += 1;
+            }
+        }
+        setNominees(newNominees);
+    }
+
+    useEffect(() => { loadData(); }, []);
+
     async function handleSubmit(e) {
         e.preventDefault();
         console.log("hello");
@@ -46,8 +75,8 @@ function AddPolicy() {
                 tenure: tenure, nominees: nom.join(" and "),
                 premiumType: premiumType, premiumAmount: premiumAmount
             };
-            await axios.post("http://localhost:8080/add", data);
-            alert("successfully added!!")
+            await axios.put(`http://localhost:8080/updatePolicy/${id}`, data);
+            alert("successfully Updated!!")
             setPolicyName('');
             setStartDate('');
             setLastDate('');
@@ -56,6 +85,8 @@ function AddPolicy() {
             setPremiumAmount(0);
             setPolicyDetails('');
             setNominees([]);
+            navigate('/list')
+
         }
         else {
             alert("Please give valid input");
@@ -64,7 +95,7 @@ function AddPolicy() {
 
 
     return (
-        <form >
+        <form>
             <div>
                 <label className='mt-5 form-label'>Policy Name</label>
                 <input type='text' className='form-control' required value={policyName} onChange={(e) => (setPolicyName(e.target.value))}></input>
@@ -113,12 +144,11 @@ function AddPolicy() {
 
 
             <div className='text-center'>
-                <button type='submit' className='mt-1 btn btn-success' onClick={(e) => (handleSubmit(e))}>Submit</button>
+                <button type='submit' className='mt-1 btn btn-success' onClick={(e) => (handleSubmit(e))}>Update</button>
             </div>
-
 
         </form>
     );
 }
 
-export default AddPolicy;
+export default UpdatePolicy;

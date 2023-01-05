@@ -1,9 +1,11 @@
 import './App.css';
 import AddPolicy from './components/AddPolicy'
 import ListPolicies from './components/ListPolicies';
+import UpdatePolicy from './components/UpdatePolicy';
+
 import NavBar from './components/NavBar';
 
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
   
@@ -13,17 +15,17 @@ function App() {
       <div className='container'>
         <NavBar />
       </div>
-      <Switch>
-        <div className='container mt-2'>
-          <Route exact path="/">
-            <AddPolicy />
-          </Route>
+      <div className='container mt-2'>
+      <Routes>
+       
+          <Route  path="/" element = {<AddPolicy />} />
+          <Route  path="/list" element = {<ListPolicies />} />
+          <Route  path="/update/:id" element = {<UpdatePolicy />} />
 
-          <Route exact path="/add">
-            <ListPolicies />
-          </Route>
-        </div>
-      </Switch>
+
+        
+      </Routes>
+      </div>
     </Router >
   );
 }

@@ -1,7 +1,16 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import PolicyRow from "./PolicyRow";
 
 function ListPolicies() {
+
+    async function handleDelete(id)
+    {
+      let res = await axios.delete("http://localhost:8080/deletePolicy/" + id);
+      let data = await res.data; 
+      console.log(data);
+      getAllPolicies();
+    }
 
     const [policies, setPolicies] = useState([]);
     async function getAllPolicies() {
@@ -15,7 +24,7 @@ function ListPolicies() {
     useEffect(() => {
         console.log("mounted");
         getAllPolicies();
-
+        
     }, []);
 
     return (
@@ -33,13 +42,7 @@ function ListPolicies() {
                     </tr>
                 </thead>
                 <tbody>
-                    {policies.map((policy,i) => <tr key ={i}>
-                        <th>{policy.policyId}</th>
-                        <td>{policy.policyName}</td>
-                        <td>{policy.tenure}</td>
-                        <td>{policy.premiumType}</td>
-                        <td>{policy.premiumAmount}</td>
-                    </tr>)}
+                    {policies.map((policy,i) => <PolicyRow key = {i} policy = {policy} handleDelete = {handleDelete}/>)}
                 </tbody>
             </table>
         </div>
