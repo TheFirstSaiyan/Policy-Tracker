@@ -7,7 +7,6 @@ function PolicyRow(props)
    
     return (
         <tr>
-            <th>{props.policy.policyId}</th>
             <td>{props.policy.policyName}</td>
             <td>{props.policy.tenure}</td>
             <td>{props.policy.premiumType}</td>
