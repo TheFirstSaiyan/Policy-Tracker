@@ -20,7 +20,7 @@ function ListPolicies() {
             policyId: policy.id, policyName: policy.policyName,
             tenure: policy.tenure, premiumType: policy.premiumType, premiumAmount: policy.premiumAmount,
             nominees: policy.nominees, startDate: policy.startDate, lastDate: policy.lastDate,
-            policyDetails: policy.policyDetails
+            policyDetails: policy.policyDetails,emailLink : policy.emailLink
         })));
     }
     useEffect(() => {
@@ -58,6 +58,9 @@ function ListPolicies() {
         {
             label: " Tenure", key: "tenure"
         },
+        {
+            label: " Email Link", key: "emailLink"
+        },
     ];
 
     const csvLink = {
@@ -83,6 +86,7 @@ function ListPolicies() {
                         <th>Tenure</th>
                         <th>Type of premium</th>
                         <th>Premium amount</th>
+                        <th>Email Link</th>
                     </tr>
                 </thead>
                 <tbody>

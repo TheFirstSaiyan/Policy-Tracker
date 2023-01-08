@@ -17,10 +17,11 @@ function AddPolicy() {
     const [premiumAmount, setPremiumAmount] = useState(0);
     const [policyDetails, setPolicyDetails] = useState('');
     const [nominees, setNominees] = useState([]);
+    const [emailLink, setEmailLink] = useState('');
 
     function checkLength() {
         console.log(premiumType);
-        return policyName.length > 0 && policyDetails.length > 0 && premiumType.length > 0;
+        return policyName.length > 0 && policyDetails.length > 0 && premiumType.length > 0 && emailLink.length > 0;
     }
 
     function checkInvalidChars() {
@@ -44,7 +45,7 @@ function AddPolicy() {
             let data = {
                 policyName: policyName, policyDetails: policyDetails, startDate: startDate, lastDate: lastDate,
                 tenure: tenure, nominees: nom.join(" and "),
-                premiumType: premiumType, premiumAmount: premiumAmount
+                premiumType: premiumType, premiumAmount: premiumAmount,emailLink : emailLink
             };
             await axios.post("http://localhost:8080/add", data);
             alert("successfully added!!")
@@ -56,6 +57,7 @@ function AddPolicy() {
             setPremiumAmount(0);
             setPolicyDetails('');
             setNominees([]);
+            setEmailLink('');
         }
         else {
             alert("Please give valid input");
@@ -104,6 +106,10 @@ function AddPolicy() {
             <div>
                 <label className='mt-5 form-label'>Policy Description and Return details</label>
                 <textarea type='text-area' rows={4} className='form-control' required value={policyDetails} onChange={(e) => (setPolicyDetails(e.target.value))}></textarea>
+            </div>
+            <div className='m-5 d-flex justify-content-evenly align-items-center'>
+                <label className=' form-label'>Link to Documents</label>
+                <input type='text' className='w-75 form-control' required value={emailLink} onChange={(e) => (setEmailLink(e.target.value))}></input>
             </div>
 
             <NomineeForm setShowNomineeForm={setShowNomineeForm} showNomineeForm={showNomineeForm} nominees={nominees} setNominees={setNominees} />
