@@ -82,7 +82,7 @@ function ListPolicies() {
             <table className="mt-2 table border table-fixed table-hover">
                 <thead>
                     <tr>
-                        <th>Policy</th>
+                        <th>Policy/Investment</th>
                         <th>Tenure</th>
                         <th>Type of premium</th>
                         <th>Premium amount</th>

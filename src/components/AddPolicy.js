@@ -68,7 +68,7 @@ function AddPolicy() {
     return (
         <form >
             <div>
-                <label className='mt-5 form-label'>Policy Name</label>
+                <label className='mt-5 form-label'>Policy/Investment Name</label>
                 <input type='text' className='form-control' required value={policyName} onChange={(e) => (setPolicyName(e.target.value))}></input>
             </div>
 
@@ -95,6 +95,7 @@ function AddPolicy() {
                         <option selected value='Monthly'>Monthly</option>
                         <option value="Yearly">Yearly</option>
                         <option value="Once">Once</option>
+                        <option value="Anytime">Anytime</option>
                     </select>
                 </div>
 
